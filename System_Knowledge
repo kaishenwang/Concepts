@@ -1,0 +1,36 @@
+deadlock: different order to acquire lock or return without release lock
+livelock: two threads tries to avoid deadlock, and blocks each other with simultaneous move 
+mutex lock: don't sleep protect resources from multiple editing
+semaphore: sleep, have a task list
+binary_semaphore: more synchronization (notify the taker by the giver) than mutual exclusion 
+counting_semaphore: limit the number of threads to access a resource
+reader-writer semaphores: multiple read or one write
+monitor: monitors several threads, only run one thread at one time
+A monitor has four components as shown below: initialization, private data, monitor procedures, and monitor entry queue. The initialization component contains the code that is used exactly once when the monitor is created. The private data section contains all private data, including private procedures, that can only be used within the monitor. Thus, these private items are not visible from outside of the monitor. The monitor procedures are procedures that can be called from outside of the monitor. The monitor entry queue contains all threads that called monitor procedures but have not been granted permissions. Seems like a mini OS.
+conditional variable: The condition_variable class is a synchronization primitive that can be used to block a thread, or  multiple threads at the same time, until another thread both modifies a shared variable (the condition), and notifies the  condition_variable.
+Process VS Threads: 
+Threads share all segments except the stack. Threads have independent call stacks (and kernel stacks), however the memory in other thread stacks is still accessible and in theory you could hold a pointer to memory in some other thread's local stack frame (though you probably should find a better place to put that memory!).
+Threads share the address space of the process that created it; processes have their own address space.
+Threads have direct access to the data segment of its process; processes have their own copy of the data segment of the parent process.
+Threads can directly communicate with other threads of its process; processes must use interprocess communication (IPC) to communicate with sibling processes.
+New threads are easily created; new processes require duplication of the parent process.
+Threads can exercise considerable control over threads of the same process; processes can only exercise control over child processes.
+Changes to the main thread (cancellation, priority change, etc.) may affect the behavior of the other threads of the process; changes to the parent process do not affect child processes.
+TLB: In a cached system, the base addresses of the last few referenced pages is maintained in registers called the TLB that aids in faster lookup. TLB contains those page-table entries that have been most recently used. Normally, each virtual memory 
+reference causes 2 physical memory accesses- one to fetch appropriate page-table entry, and one to fetch the desired data. Using TLB in-between, this is reduced to just one physical memory access in cases of TLB-hit. Refresh every context switch.
+Interprocess Communication (IPC):
+files to store data, shared memory, message passing, sockets
+Pipe: A unidirectional data channel. Data written to the write end of the pipe is buffered by the operating system until it is read from the read end of the pipe. Two-way data streams between processes can be achieved by creating two pipes utilizing standard input and output.
+Signal: A system message sent from one process to another, not usually used to transfer data but instead used to remotely command the partnered process.
+Message queue: A data stream similar to a socket, but which usually preserves message boundaries. Typically implemented by the operating system, they allow multiple processes to read and write to the message queue without being directly connected to each other.
+Scheduling:
+First in, first out
+Earliest deadline first
+Shortest remaining time
+Fixed priority pre-emptive scheduling
+Round-robin scheduling
+References:
+https://en.wikipedia.org/wiki/Inter-process_communication
+https://discuss.leetcode.com/topic/90976/what-is-inter-process-communication
+https://discuss.leetcode.com/topic/91166/what-is-the-translation-lookaside-buffer-tlb
+https://stackoverflow.com/questions/200469/what-is-the-difference-between-a-process-and-a-thread
