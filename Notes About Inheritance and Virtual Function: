@@ -1,0 +1,21 @@
+Notes About Inheritance and Virtual Function:
+Say we have Base Class and Derived Class, consider following scenarios:
+Base b;
+Derived d;
+Base* bptr = &d;
+Derived* dptr = &d;
+bptr->MethodOnlyInDerivedButNotInBase(); // Error
+bptr->NonVirtualmethod(); // NonVirtualmethod() in Base
+dptr->NonVirtualmethod(); // NonVirtualmethod() in Derived
+/*Note: Virtualmethod() must be virtual in Base, but not necessarily virtual in Derived.*/
+bptr(or dptr)->Virtualmethod(); // Virtualmethod() in Derived
+bptr(or dptr)->Base::Virtualmethod(); // Virtualmethod() in Base
+
+Non-virtual member functions are resolved statically. That is, the member function is selected statically (at compile-time) based on the type of the pointer (or reference) to the object.
+
+In contrast, virtual member functions are resolved dynamically (at run-time). That is, the member function is selected dynamically (at run-time) based on the type of the object, not the type of the pointer/reference to that object. This is called “dynamic binding.” 
+
+The compiler creates a v-table for each class that has at least one virtual function. The compiler puts a hidden pointer in the object that points to the v-table. The v-table itself has pointers to each of the virtual functions in the class. During a dispatch of a virtual function, the run-time system follows the object’s v-pointer to the class’s v-table to the method code.
+
+Reference:
+https://isocpp.org/wiki/faq/virtual-functions
