@@ -50,8 +50,14 @@ Shortest remaining time
 Fixed priority pre-emptive scheduling
 Round-robin scheduling
 
+Network Protocols:
+IP, TCP, UDP, DNS (Domain Name System, uses TCP and UDP), DHCP (Dynamic Host Configuration Protocol, assign IP), 
+ARP (Address Resolution Protocol, link IP with MAC address), NAT (Network Address Translation, remapping one IP address space into
+ another by modifying network address information in IP header of packets while they are in transit across a traffic routing device)
+
 References:
 https://en.wikipedia.org/wiki/Inter-process_communication
 https://discuss.leetcode.com/topic/90976/what-is-inter-process-communication
 https://discuss.leetcode.com/topic/91166/what-is-the-translation-lookaside-buffer-tlb
 https://stackoverflow.com/questions/200469/what-is-the-difference-between-a-process-and-a-thread
+https://en.wikipedia.org/wiki
