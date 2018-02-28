@@ -1,22 +1,21 @@
-I will summarize the knowledge about hash from two perspectives.
+I will summarize the knowledge about hashing from two perspectives.
 #source: http://jeffe.cs.illinois.edu/teaching/algorithms/notes/12-hashing.pdf
 #source: http://en.cppreference.com/w/cpp/container/unordered_map
 
 First, from theoretical perspective.
 
-Properties about hash function:
--load factor: number of elements stored / number of buckets (m stands for the number of buckets for the rest)
+Properties about hash functions:
+-load factor: number of elements stored / number of buckets (number of buckets will be represented as m in the rest part)
 -uniformity: Pr[h(x)=i] = 1/m for all x and all i
 -universal: Pr[h(x)=h(y) | x!=y] = 1/m 
 -near-universal: Pr[h(x)=h(y) | x!=y] <= 2/m 
--k-uniform/k-universal: for any sequence of k disjoint keys and any sequence of k hash values, the probability that each
-key maps to the corresponding hash value is 1/(m^k). Ideal random hash functions are k-uniform for every positive integer k.
+-k-uniform/k-universal: for any sequence of k disjoint keys and any sequence of k hash values, the probability that each key maps to the corresponding hash value is 1/(m^k). Ideal random hash functions are k-uniform for every positive integer k.
 -Multiplicative Hashing: using modular arithmetic with prime numbers/ powers of two
- a common example (near-universal): #define hash(a,x) ((a)*(x) >> (WORDSIZE-HASHBITS)) "a" (secret salt) is an odd integer smaller than the largest element, the shift only reserves the first several bits that can be fit in the hash table.
+a common example (near-universal): #define hash(a,x) ((a)*(x) >> (WORDSIZE-HASHBITS)) "a" (secret salt) is an odd integer smaller than the largest element, the shift only reserves the first several bits that can be fit in the hash table.
 
 Methods for collision:
 -chaining (array of linked lists)
--open addressing: set of hash functions, try them one by one (all the followings are examples):
+-open addressing: set of hash functions, try them one by one (all the followings are examples of open addressing):
 -linear probing: hi(x) := (h(x) + i) mod m (looks for the next empty spot)
 -binary probing: hi(x) := h(x) xor i
 -quadratic probing: single hash function h and set hi(x) := (h(x) + i^2) mod m
@@ -31,5 +30,5 @@ Second, from the perspective of implementation of hash tables (unordered_map) in
 It uses chaining.
 You can specify the max_load_factor (default is 1). Resize happens when the load factor reaches the max_load_factor threshold.
 During resize: roughly doubles its size. new_number_of_buckets = old_number_of_buckets * 2 + k (k is a small number that could change from the experience of experiment, sometimes 1). O(n) operation happens, new hash function calculated. All iterators becomes invalid.
-You can use rehash() to specify the number of buckets you want in advance, thus avoiding resizing. (Similar to reserve() in vector.) reserve() in unordered_map is the same as rehash(std::ceil(count / max_load_factor())).
+You can use rehash() to specify the number of buckets you want in advance, thus avoiding resizing. (Similar to reserve() in vector.) reserve(count) in unordered_map is the same as rehash(std::ceil(count / max_load_factor())).
 Like vector, the number of buckets will not be decreased during erasing elements.
