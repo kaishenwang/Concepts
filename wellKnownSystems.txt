@@ -1,0 +1,42 @@
+This file targets at key features about some well-known systems. I will keep updating it.
+
+#source: https://www.scnsoft.com/blog/spark-vs-hadoop-mapreduce
+Spark VS Hadoop:
+Hadoop:
+- using disk, more data but slow
+- good for linear processing over large dataset, or non emergent case
+Spark:
+- using memory, less data but fast
+- good for fast data processing, Iterative processing, Near real-time processing,
+Graph processing, ML
+
+Hive:
+- a data warehouse infrastructure built on top of Hadoop
+- provides analysis of large datasets stored in Hadoop's HDFS
+- provides an SQL-like query language, execute mapreduce job
+- internal or external tables, how data is loaded, controlled, and managed
+
+#https://www.ngdata.com/visualizing-hbase-flushes-and-compactions/
+Hbase:
+- NoSQL, column-oriented key-value data store
+- supports versioning
+- CP system (no A)
+- cut by rows into regions, with start key and end key
+- Write to HBase: first into memstore, flush memstore to disk into a store file (also log)
+  The store files created on disk are immutable.
+
+#https://stackoverflow.com/questions/21808529/apache-kafka-vs-apache-storm
+Streaming:
+Apache Kafka as a distributed and robust queue that can handle high volume data
+and enables you to pass messages from one end-point to another.
+Storm (or Heron) is not a queue. It is a system that has distributed real time processing abilities, 
+meaning you can execute all kind of manipulations on real time data in parallel.
+The common flow of these tools (as I know it) goes as follows:
+real-time-system --> Kafka --> Storm/Heron --> NoSql --> BI(Business Intelligence, optional)
+So you have your real time app handling high volume data, sends it to Kafka queue. 
+Storm pulls the data from kafka and applies some required manipulation. 
+At this point you usually like to get some benefits from this data, so you either send it to some Nosql db 
+for additional BI calculations, or you could simply query this NoSql from any other system. 
+
+
+
