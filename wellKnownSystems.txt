@@ -7,8 +7,7 @@ Hadoop:
 - good for linear processing over large dataset, or non emergent case
 Spark:
 - using memory, less data but fast
-- good for fast data processing, Iterative processing, Near real-time processing,
-Graph processing, ML
+- good for fast data processing, Iterative processing, Near real-time processing, Graph processing, ML
 
 Hive:
 - a data warehouse infrastructure built on top of Hadoop
